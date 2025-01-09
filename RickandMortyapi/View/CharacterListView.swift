@@ -12,7 +12,7 @@ struct CharacterListView: View {
     @StateObject private var viewModel = CharacterViewModel()
     @EnvironmentObject private var networkMonitor: NetworkMonitor
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(viewModel.characters) { character in
                     NavigationLink {
@@ -34,9 +34,8 @@ struct CharacterListView: View {
             .listStyle(.plain)
             .navigationTitle("Rick and Morty")
         }
-        .onAppear {
-            viewModel.fetchCharacters()
-        }
+        .onAppear {  viewModel.fetchCharacters() }
+        .refreshable {   viewModel.refreshCharacters() }
         .networkStatus(isConnected: $networkMonitor.isConnected)
 
     }

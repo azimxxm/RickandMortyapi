@@ -37,6 +37,14 @@ class CharacterViewModel: ObservableObject {
     }
     
     
+    func refreshCharacters() {
+        currentPage = 1 // Paginatsiyani boshidan boshlash
+        characters = [] // Eski ma'lumotlarni tozalash
+        fetchCharacters() // API-dan ma'lumotlarni qayta olish
+    }
+
+    
+    
     func checkIsLastItemVisible(item: CharacterDM) {
         guard let lastItem = characters.last else { return }
         if item.item_id == lastItem.item_id {  fetchCharacters() }
