@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct RickandMortyapiApp: App {
+    @StateObject private var networkMonitor = NetworkMonitor.shared
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CharacterListView()
+                .environmentObject(networkMonitor)
+                .networkStatus(isConnected: $networkMonitor.isConnected)
         }
     }
 }
